@@ -1,7 +1,7 @@
 package require Tk
 package require TclOO
 
-package provide ttk::m3::navrail 0.1.0
+package provide ttk::m3::navrail 1.0
 
 namespace eval ttk::m3 {
     # Default styling tokens for MD3
