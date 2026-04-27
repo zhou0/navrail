@@ -21,7 +21,7 @@ pack $rail -side left -fill y
 set menuBtn [ttk::frame $rail.top -style M3NavRail.TFrame]
 set railBg [ttk::style lookup M3NavRail.TFrame -background]
 set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background $railBg -cursor hand2]
-pack $btn -pady 10 -padx 24
+pack $btn -pady 10 -padx 24 -side left
 pack $menuBtn -side top -fill x -before [$rail f]
 
 bind $btn <Button-1> {
