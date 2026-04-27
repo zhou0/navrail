@@ -6,9 +6,24 @@ source navrail.tcl
 set root [ttk::frame .root]
 pack $root -fill both -expand 1
 
-# Instantiate NavRail
-set rail [NavRail $root.rail]
+# Navigation Rail
+set rail [NavRail $root.rail -state collapsed]
 pack $rail -side left -fill y
+
+# Toggle button at the top of the rail
+set menuBtn [ttk::frame $root.rail.f.top -style NavRail.TFrame]
+set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background "#FEF7FF" -cursor hand2]
+pack $btn -pady 10 -padx 24
+pack $menuBtn -side top -fill x -before [$rail f]
+
+bind $btn <Button-1> {
+    set current [$rail configure -state]
+    if {$current eq "collapsed"} {
+        $rail configure -state expanded
+    } else {
+        $rail configure -state collapsed
+    }
+}
 
 # Add items
 $rail add_item home "🏠" "Home"
@@ -33,4 +48,4 @@ bind $rail <<NavRailSelected>> {
 }
 
 wm title . "Material Design 3 Navigation Rail Demo"
-wm geometry . 600x400
+wm geometry . 800x500
