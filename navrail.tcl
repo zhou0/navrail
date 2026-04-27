@@ -129,12 +129,25 @@ oo::class create navrail_class {
         my select $selected
     }
 
+    method cget {opt} {
+        if {$opt eq "-state"} {
+            return $state
+        }
+        return [$container cget $opt]
+    }
+
     method configure {args} {
         if {[llength $args] == 0} {
-            return [$container configure]
+            set res [$container configure]
+            lappend res [list -state state State collapsed $state]
+            return $res
         }
         if {[llength $args] == 1} {
-            return [$container configure [lindex $args 0]]
+            set opt [lindex $args 0]
+            if {$opt eq "-state"} {
+                return [list -state state State collapsed $state]
+            }
+            return [$container configure $opt]
         }
 
         foreach {opt val} $args {
