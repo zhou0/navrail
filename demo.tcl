@@ -1,18 +1,24 @@
 package require Tk
 lappend auto_path .
-source navrail.tcl
+package require ttk::m3::navrail
 
 # Root frame
 set root [ttk::frame .root]
 pack $root -fill both -expand 1
 
+# Optional: Override styles to test extensibility
+# ttk::style configure M3NavRail.TFrame -background "#EADDFF"
+# ttk::style configure M3NavRail.Indicator.TFrame -background "#21005D"
+
 # Navigation Rail
-set rail [NavRail $root.rail -state collapsed]
+set rail [ttk::m3::navrail $root.rail -state collapsed]
 pack $rail -side left -fill y
 
-# Toggle button at the top of the rail
-set menuBtn [ttk::frame $rail.top -style NavRail.TFrame]
-set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background "#FEF7FF" -cursor hand2]
+# Toggle button
+# Corrected: use the style name, not the background color value
+set menuBtn [ttk::frame $rail.top -style M3NavRail.TFrame]
+set railBg [ttk::style lookup M3NavRail.TFrame -background]
+set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background $railBg -cursor hand2]
 pack $btn -pady 10 -padx 24
 pack $menuBtn -side top -fill x -before [$rail f]
 
@@ -37,15 +43,10 @@ pack $content -side right -fill both -expand 1 -padx 20 -pady 20
 set title [ttk::label $content.title -text "Home Screen" -font {Helvetica 18 bold}]
 pack $title -anchor nw
 
-# Handle selection
 bind $rail <<NavRailSelected>> {
     set id [%W get_selection]
-    switch $id {
-        home { .root.content.title configure -text "Home Screen" }
-        search { .root.content.title configure -text "Search Screen" }
-        settings { .root.content.title configure -text "Settings Screen" }
-    }
+    .root.content.title configure -text "[string totitle $id] Screen"
 }
 
-wm title . "Material Design 3 Navigation Rail Demo"
+wm title . "Material Design 3 NavRail Package"
 wm geometry . 800x500
