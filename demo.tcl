@@ -11,7 +11,8 @@ set rail [NavRail $root.rail -state collapsed]
 pack $rail -side left -fill y
 
 # Toggle button at the top of the rail
-set menuBtn [ttk::frame $root.rail.f.top -style NavRail.TFrame]
+# Corrected path: must be child of $rail, sibling of $rail.f
+set menuBtn [ttk::frame $rail.top -style NavRail.TFrame]
 set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background "#FEF7FF" -cursor hand2]
 pack $btn -pady 10 -padx 24
 pack $menuBtn -side top -fill x -before [$rail f]
