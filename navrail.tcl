@@ -1,3 +1,4 @@
+package require Tk
 package require TclOO
 
 namespace eval navrail {
@@ -144,9 +145,6 @@ oo::class create navrail_class {
 
 # The constructor proc to allow standard Tk-like syntax: NavRail .path
 proc NavRail {path args} {
-    # Ensure Tk is loaded before creating any widgets
-    package require Tk
-
     # Create the object first
     set obj [navrail_class create ${path}_obj $path {*}$args]
 

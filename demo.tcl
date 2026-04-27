@@ -1,3 +1,4 @@
+package require Tk
 lappend auto_path .
 source navrail.tcl
 
