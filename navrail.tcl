@@ -41,13 +41,12 @@ oo::class create navrail_class {
     }
 
     method SetupStyles {} {
-        set s [ttk::style]
-        $s configure NavRail.TFrame -background $navrail::surface
+        ttk::style configure NavRail.TFrame -background $navrail::surface
 
         # Label styles for navigation items
-        $s configure NavRail.Item.TLabel -background $navrail::surface \
+        ttk::style configure NavRail.Item.TLabel -background $navrail::surface \
             -foreground $navrail::onSurfaceVariant -font {Helvetica 9} -anchor center
-        $s configure NavRail.Active.TLabel -background $navrail::surface \
+        ttk::style configure NavRail.Active.TLabel -background $navrail::surface \
             -foreground $navrail::onSurface -font {Helvetica 9 bold} -anchor center
     }
 
@@ -145,6 +144,9 @@ oo::class create navrail_class {
 
 # The constructor proc to allow standard Tk-like syntax: NavRail .path
 proc NavRail {path args} {
+    # Ensure Tk is loaded
+    package require Tk
+
     # Create the object first
     set obj [navrail_class create ${path}_obj $path {*}$args]
 
