@@ -28,14 +28,15 @@ oo::class create navrail_class {
         ttk::frame $w -style NavRail.TFrame -width $navrail::containerWidth
         pack propagate $w 0
 
-        # 2. Rename the frame command to keep it accessible but hidden
-        set container ${w}_real
+        # 2. Rename the frame command to keep it accessible for internal use
+        # but the window path remains $w
+        set container ${w}_widget
         rename $w $container
 
         my SetupStyles
 
-        # 3. Main rail frame for destinations inside the container
-        set f [ttk::frame $container.f -style NavRail.TFrame]
+        # 3. Create children using the original window path as parent
+        set f [ttk::frame $w.f -style NavRail.TFrame]
         pack $f -fill both -expand 1 -pady 10
 
         # Configure the widget based on args
@@ -137,10 +138,10 @@ oo::class create navrail_class {
     }
 
     method f {} {
-        return $container.f
+        return $w.f
     }
 
-    # Delegate standard widget methods to the underlying frame
+    # Delegate standard widget methods to the underlying frame command
     method unknown {method args} {
         return [$container $method {*}$args]
     }
