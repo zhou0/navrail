@@ -36,7 +36,7 @@ $rail add_item home "🏠" "Home"
 $rail add_item search "🔍" "Search"
 $rail add_item settings "⚙️" "Settings"
 
-# Content
+# Content area
 set content [ttk::frame $root.content]
 pack $content -side right -fill both -expand 1 -padx 20 -pady 20
 
