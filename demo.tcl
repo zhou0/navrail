@@ -1,3 +1,5 @@
+encoding system utf-8
+
 package require Tk
 lappend auto_path .
 package require ttk::m3::navrail
