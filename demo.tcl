@@ -15,9 +15,8 @@ set rail [ttk::m3::navrail $root.rail -state collapsed]
 pack $rail -side left -fill y
 
 # Toggle button
-set menuBtn [ttk::frame $rail.top -style [ttk::style lookup M3NavRail.TFrame -background]]
-# Note: we need to handle the background for the label manually as it's a themed label or a canvas
-# For simplicity in demo, we just use a label with matching background
+# Corrected: use the style name, not the background color value
+set menuBtn [ttk::frame $rail.top -style M3NavRail.TFrame]
 set railBg [ttk::style lookup M3NavRail.TFrame -background]
 set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background $railBg -cursor hand2]
 pack $btn -pady 10 -padx 24
