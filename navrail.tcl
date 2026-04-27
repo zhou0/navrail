@@ -76,12 +76,12 @@ oo::class create navrail_class {
 
         # Bindings for selection
         foreach sub {frame wrapper label} {
-            bind [dict get [dict get $items $id] $sub] <Button-1> [list [self] select $id]
+            bind [dict get [dict get $items $id] $sub] <Button-1> [list $w select $id]
         }
 
         # Bindings for hover effects
-        bind $itemFrame <Enter> [list my OnHover $id 1]
-        bind $itemFrame <Leave> [list my OnHover $id 0]
+        bind $itemFrame <Enter> [list $w on_hover $id 1]
+        bind $itemFrame <Leave> [list $w on_hover $id 0]
 
         # Default selection to first item
         if {$selected eq ""} {
@@ -91,7 +91,7 @@ oo::class create navrail_class {
         return $itemFrame
     }
 
-    method OnHover {id entering} {
+    method on_hover {id entering} {
         set data [dict get $items $id]
         set wrapper [dict get $data wrapper]
         if {$id ne $selected} {
