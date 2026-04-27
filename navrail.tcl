@@ -24,13 +24,17 @@ oo::class create navrail_class {
         set items {}
         set selected ""
 
-        # Create the main container frame
-        set container [ttk::frame ${w}_real -style NavRail.TFrame -width $navrail::containerWidth]
-        pack propagate $container 0
+        # 1. Create the real frame using the requested path
+        ttk::frame $w -style NavRail.TFrame -width $navrail::containerWidth
+        pack propagate $w 0
+
+        # 2. Rename the frame command to keep it accessible but hidden
+        set container ${w}_real
+        rename $w $container
 
         my SetupStyles
 
-        # Main rail frame for destinations
+        # 3. Main rail frame for destinations inside the container
         set f [ttk::frame $container.f -style NavRail.TFrame]
         pack $f -fill both -expand 1 -pady 10
 
@@ -147,10 +151,10 @@ proc NavRail {path args} {
     # Ensure Tk is loaded
     package require Tk
 
-    # Create the object first
+    # Create the object first (which creates the frame)
     set obj [navrail_class create ${path}_obj $path {*}$args]
 
-    # Create an alias so that the widget path command calls the object methods
+    # Create an alias so that the original widget path command calls the object methods
     interp alias {} $path {} $obj
     return $path
 }
