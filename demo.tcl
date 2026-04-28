@@ -20,7 +20,7 @@ pack $rail -side left -fill y
 # Corrected: use the style name, not the background color value
 set menuBtn [ttk::frame $rail.top -style M3NavRail.TFrame]
 set railBg [ttk::style lookup M3NavRail.TFrame -background]
-set btn [ttk::label $menuBtn.btn -text "≡" -font {Helvetica 18} -background $railBg -cursor hand2]
+set btn [ttk::label $menuBtn.btn -text "\u2261" -font {Helvetica 18} -background $railBg -cursor hand2]
 pack $btn -pady 10 -padx 24 -side left
 pack $menuBtn -side top -fill x -before [$rail f]
 
@@ -34,9 +34,9 @@ bind $btn <Button-1> {
 }
 
 # Add items
-$rail add_item home "🏠" "Home"
-$rail add_item search "🔍" "Search"
-$rail add_item settings "⚙️" "Settings"
+$rail add_item home "\u2302" "Home"
+$rail add_item search "\u2315" "Search"
+$rail add_item settings "\u2699" "Settings"
 
 # Content
 set content [ttk::frame $root.content]
